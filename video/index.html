@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>首页</title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<style>
+			a:link{
+				text-decoration:none;
+			}
+			a:visited{
+				text-decoration:none;
+			}
+			a:hover{
+				text-decoration:none;
+			}
+			a:active{
+				text-decoration:none;
+			}
+			@media all and (min-width: 960px) {
+				.app-container {
+					width: 960px;
+					margin: 110px auto 0 auto;
+					padding-left: 252px;
+				}
+				.api-sel {
+					float: left;
+				}
+				.api-sel select {
+					width: 150px;
+					height: 32px;
+					border: 1px solid #b6b6b6;
+				}
+				.video-search {
+					float: left;
+					margin-left: 2px;
+				}
+				.video-search input {
+					width: 450px;
+					height: 28px;
+					padding-left: 10px;
+					border: 1px solid #b6b6b6;
+				}
+				.video-search span {
+					display: block;
+					float: right;
+					width: 96px;
+					height: 32px;
+					text-align: center;
+					line-height: 32px;
+					font-size: 16px;
+					color: #fff;
+					cursor: pointer;
+					background-color: #3385ff;
+				}
+				.video-iframe {
+					margin-top: 5px;
+				}
+				.video-iframe iframe {
+					width: 710px;
+					height: 400px;
+					border: 1px solid #b6b6b6;
+					background-color: black;
+				}
+				.footer {
+					width: 710px;
+					margin-top: 30px;
+				}
+				.copyright {
+					float: left;
+					margin-left: 160px;
+				}
+				.visit-count {
+					float: right;
+					margin-right: 160px;
+				}
+			}
+			
+			@media all and (min-width: 350px) and (max-width: 767px) {
+				body {
+					margin: 0;
+					padding: 0;
+				}
+				.app-container {
+					width: 340px;
+					margin: 50px auto 0 auto;
+				}
+				.api-sel {
+					margin-bottom: 10px;
+				}
+				.api-sel select {
+					width: 180px;
+					height: 38px;
+					padding-left: 6px;
+					font-size: 14px;
+					border: 1px solid #b6b6b6;
+				}
+				.api-sel option {
+					font-size: 9px;
+				}
+				.video-search {
+					margin-bottom: 10px;
+				}
+				.video-search input {
+					float: left;
+					width: 258px;
+					height: 34px;
+					padding-left: 10px;
+					border: 1px solid #b6b6b6;
+				}
+				.video-search span {
+					display: block;
+					float: left;
+					width: 70px;
+					height: 38px;
+					text-align: center;
+					line-height: 38px;
+					font-size: 16px;
+					color: #fff;
+					cursor: pointer;
+					background-color: #3385ff;
+				}
+				.video-iframe {
+					margin-top: 10px;
+				}
+				.video-iframe iframe {
+					width: 340px;
+					height: 300px;
+					border: 1px solid #b6b6b6;
+					background-color: black;
+				}
+				.footer {
+					margin-top: 15px;
+				}
+				.copyright {
+					float: left;
+					margin-left: 36px;
+				}
+				.visit-count {
+					float: right;
+					margin-right: 36px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app-container">
+			<div>
+				<div class="api-sel">
+					<select onchange="selApi(this)">
+						<option value="http://api.xcq91.top/?url=">选择接口</option>
+						<option value="http://api.xcq91.top/?url=">全网（太尼玛快了）</option>
+						<option value="http://vip.jlsprh.com/index.php?url=">全网（太快了）</option>
+						<option value="http://api.wlzhan.com/sudu/?url=">全网（太快了）</option>
+						<option value="http://2gty.com/apiurl/yun.php?url=">全网（有点快）</option>
+						<option value="http://api.xyingyu.com/?url=">全网（有点快）</option>
+						<option value="http://jx.618g.com/?url=">全网（有点快）</option>
+						<option value="http://api.greatchina56.com/?url=">全网（有点快）</option>
+						<option value="http://api.xiaomil.com/a/index.php?url=">全网（有点快）</option>
+						<option value="http://api.lvcha2017.cn/?url=">全网（一般般）</option>
+						<option value="http://api.visaok.net/?url=">非全网（太快了）</option>
+						<option value="http://jqaaa.com/jq3/?url=&url=">非全网，偏腾讯TV（有点快）</option>
+						<option value="https://jiexi.071811.cc/jx2.php?url=">非全网，偏腾讯TV（有点快）</option>
+						<option value="http://api.baiyug.cn/vip/index.php?url=">非全网，偏腾讯TV（有点快）</option>
+					</select>
+				</div>
+				<div class="video-search">
+					<input id="video_url_id" type="text" placeholder="请输入视频播放网址"/>
+					<span id="search_btn" onclick="doPlay()">播放</span>
+				</div>
+				<div style="clear: both"></div>
+				<div class="video-iframe">
+					<iframe id="video_frame"></iframe>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="copyright">
+					<span>©2018&nbsp;玩代码&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="showAbout()">使用声明</a></span>
+				</div>
+				<div class="visit-count">
+					<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274594875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274594875%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+				</div>
+			</div>
+		</div>
+		<script>
+			var api;
+			function selApi(selThis) {
+				api = selThis.value;
+			}
+			function doPlay() {
+				if(api == null || api.trim().length == 0) {
+					api = "http://api.xcq91.top/?url=";
+				}
+				var url = $("#video_url_id").val();
+				if(url == null || url.trim().length == 0) {
+					$("#video_url_id").focus();
+				} else {
+					addVisitCount();
+					$("#video_frame").attr("src", api + url);
+				}
+			}
+			function showAbout() {
+				alert("本站所有接口均来自互联网，仅提供本地测试使用，请勿用于任何商业用途，否则后果自负。");
+			}
+			function getCurDateStr() {
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				if(month < 10) {
+					month = "0" + month;
+				}
+				if(day < 10) {
+					day = "0" + day;
+				}
+				return year + "-" + month + "-" + day;
+			}
+		</script>
+	</body>
+</html>
