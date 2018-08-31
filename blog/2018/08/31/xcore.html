@@ -47,16 +47,56 @@
 --->
 </div>
 
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#开发环境"><span class="toc-text">开发环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hello-world"><span class="toc-text">hello world</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#保护模式"><span class="toc-text">保护模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分页模式"><span class="toc-text">分页模式</span></a></li></ol>
-<h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><h3 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h3><ul>
-<li>int 0x10</li>
-<li>操作显存</li>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#开发环境"><span class="toc-text">开发环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hello-world"><span class="toc-text">hello world</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#保护模式"><span class="toc-text">保护模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分页模式"><span class="toc-text">分页模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用C语言写内核"><span class="toc-text">用C语言写内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中断"><span class="toc-text">中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存管理系统"><span class="toc-text">内存管理系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程"><span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入输出系统"><span class="toc-text">输入输出系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户进程"><span class="toc-text">用户进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统调用"><span class="toc-text">系统调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#硬盘驱动程序"><span class="toc-text">硬盘驱动程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件系统"><span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统交互"><span class="toc-text">系统交互</span></a></li></ol>
+<h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><ol>
+<li><p>开发工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CentOS-6.9-x86_64-minimal.iso</span><br><span class="line">VirtualBox-5.1.22-115126-Win.exe(windows)</span><br><span class="line">Bochs-2.6.8(windows)</span><br><span class="line">Bz1621.lzh(Binary Editor)</span><br><span class="line">gcc</span><br><span class="line">nasm</span><br><span class="line">dd</span><br><span class="line">Notepad++(windows)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>VirtualBox设置linux和windows共享文件夹</p>
+<ul>
+<li>设置–&gt;共享文件夹–&gt;名称(linuxshare), 自动挂载,固定分配</li>
+<li>设置–&gt;存储–&gt;控制器:IDE–&gt;VBoxGuestAdditions.iso</li>
+<li>执行命令:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yun install -y gcc gcc-c++</span><br><span class="line">yum install -y autoconf</span><br><span class="line">yum install -y automake</span><br><span class="line">yum install -y kernel-devel</span><br><span class="line">mkdir /home/share</span><br><span class="line">mount /dev/cdrom /home/share</span><br><span class="line">cd /home/share</span><br><span class="line">./VBoxLinuxAdditions.run</span><br><span class="line">mount -t vboxsf linuxshare /usr/local/winshare</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="保护模式"><a href="#保护模式" class="headerlink" title="保护模式"></a>保护模式</h3><ul>
-<li>读取硬盘</li>
-<li>加载Loader</li>
+</li>
+<li><p>开发过程<br>在windows用Notepad++写代码,在linux中用nasm、gcc编译和用dd打包,<br>然后在windows中用Bochs调试运行.<br>Notepad++(windows)–&gt;make(linux)–&gt;run.bat(windows)</p>
+</li>
+<li>注意事项<ul>
+<li>编译/链接32位的C代码:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -m32 -c -o main.o main.c</span><br><span class="line">ld main.o -melf_i386 -Ttext 0xc0001500 -e main -o kernel.bin</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="分页模式"><a href="#分页模式" class="headerlink" title="分页模式"></a>分页模式</h3>
+</li>
+</ol>
+<h3 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h3><ol>
+<li><p>int 0x10</p>
+</li>
+<li><p>操作显存</p>
+</li>
+</ol>
+<h3 id="保护模式"><a href="#保护模式" class="headerlink" title="保护模式"></a>保护模式</h3><ol>
+<li><p>读取硬盘</p>
+</li>
+<li><p>加载Loader</p>
+</li>
+<li><p>获取物理内存容量</p>
+</li>
+</ol>
+<h3 id="分页模式"><a href="#分页模式" class="headerlink" title="分页模式"></a>分页模式</h3><ol>
+<li><p>分页概念</p>
+</li>
+<li><p>开启分页</p>
+</li>
+</ol>
+<h3 id="用C语言写内核"><a href="#用C语言写内核" class="headerlink" title="用C语言写内核"></a>用C语言写内核</h3><ol>
+<li><p>概念</p>
+</li>
+<li><p>内联汇编</p>
+</li>
+<li><p>print函数</p>
+</li>
+</ol>
+<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><h3 id="内存管理系统"><a href="#内存管理系统" class="headerlink" title="内存管理系统"></a>内存管理系统</h3><h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><h3 id="输入输出系统"><a href="#输入输出系统" class="headerlink" title="输入输出系统"></a>输入输出系统</h3><h3 id="用户进程"><a href="#用户进程" class="headerlink" title="用户进程"></a>用户进程</h3><h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><h3 id="硬盘驱动程序"><a href="#硬盘驱动程序" class="headerlink" title="硬盘驱动程序"></a>硬盘驱动程序</h3><h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><h3 id="系统交互"><a href="#系统交互" class="headerlink" title="系统交互"></a>系统交互</h3>
 
 <!--<a href="http://www.wandaima.org/blog/2018/08/31/xcore.html#disqus_thread" class="article-comment-link">Comments</a>
 <div id="disqus_thread"></div>
