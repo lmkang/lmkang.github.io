@@ -198,25 +198,11 @@
 				if(url == null || url.trim().length == 0) {
 					$("#video_url_id").focus();
 				} else {
-					addVisitCount();
 					$("#video_frame").attr("src", api + url);
 				}
 			}
 			function showAbout() {
 				alert("本站所有接口均来自互联网，仅提供本地测试使用，请勿用于任何商业用途，否则后果自负。");
-			}
-			function getCurDateStr() {
-				var date = new Date();
-				var year = date.getFullYear();
-				var month = date.getMonth() + 1;
-				var day = date.getDate();
-				if(month < 10) {
-					month = "0" + month;
-				}
-				if(day < 10) {
-					day = "0" + day;
-				}
-				return year + "-" + month + "-" + day;
 			}
 		</script>
 	</body>

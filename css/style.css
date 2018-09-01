@@ -59,7 +59,8 @@
 }
  .highlight .gutter pre {
   text-align: right;
-  padding-right: 20px;
+  /*padding-right: 20px;*/
+  padding-right: 10px;
 }
  .highlight .line {
   height: 22.400000000000002px;
