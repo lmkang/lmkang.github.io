@@ -2,8 +2,13 @@ body {
   font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-size: 18px;
   padding: 2% 2% 5% 2%;
-  line-height: 150%;
+  line-height: 1.8;
   border: 1px solid LightGrey;
+}
+@media (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
 }
 @media (max-width: 767px) {
   body {
@@ -167,6 +172,7 @@ pre code {
 }
 .highlight .line {
   height: 20px;
+  line-height: 1.6;
 }
 pre .comment {
   color: #8e908c;
