@@ -48,9 +48,10 @@
 </div>
 
 <!--
-
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统是什么"><span class="toc-text">操作系统是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#X86实模式和保护模式"><span class="toc-text">X86实模式和保护模式</span></a></li></ol>
 -->
-<p>待续。。。</p>
+<h3 id="操作系统是什么"><a href="#操作系统是什么" class="headerlink" title="操作系统是什么"></a>操作系统是什么</h3><p>&emsp;&emsp;操作系统（Operating System，简称OS）是管理和控制计算机硬件与软件资源的计算机程序，是直接运行在“裸机“上的最基本的系统软件，任何其他软件都必须在操作系统的支持下才能运行。<br>&emsp;&emsp;简单来说，OS就是封装了底层硬件的各种对人不友好的接口，然后提供对人更加友好的接口（API），也叫系统调用。现代操作系统的基本功能包括：进程管理、内存管理、文件系统、网络通讯、安全机制、用户交互、驱动程序。</p>
+<h3 id="X86实模式和保护模式"><a href="#X86实模式和保护模式" class="headerlink" title="X86实模式和保护模式"></a>X86实模式和保护模式</h3><p>&emsp;&emsp;x86的内存寻址是通过段寄存器的值加上偏移地址形成物理地址来寻址的。16位寄存器的寻址空间是64KB，可是当时地址总线已经到20位了，在不改变段寄存器位数的情况下，为了能有更大的寻址空间，英特尔工程师当时就想了一个办法：由16位段寄存器的值乘以16当做段基址，加上16位偏移地址，这样就形成了20位的物理地址，寻址空间就达到了1MB。<br>&emsp;&emsp;可是，这样又会引出一个问题：内存访问是采用”段基址：段内偏移地址“的形式，即段基址乘以16加上段内偏移地址，如果段基址和段内偏移都为16位的最大值，即0xffff：0xffff，最大寻址地址是0xffff0+0xffff=0x10ffef。由于20位地址线的最大寻址空间是1MB,即0x00000~0xfffff，超出1MB内存的部分在物理上没有对应的地址。为了解决这个问题，CPU的做法是地址回绕，即把地址对1MB求模。超出1MB的内存被称为高端内存区（HMA）。<br>&emsp;&emsp;CPU复位或者加电的时候都是以实模式启动的。在实模式下，所有的段都是可读、可写和可执行的，这是很不安全的。<br>&emsp;&emsp;待续。。。</p>
 
 
 <!--<a href="http://www.wandaima.org/blog/2018/08/31/os-concept.html#disqus_thread" class="article-comment-link">Comments</a>
