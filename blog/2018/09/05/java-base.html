@@ -1,0 +1,157 @@
+<html>
+<head>
+	
+	<title>Java基础相关知识点的总结</title>
+	<meta name="keywords" content="wandaima.org,玩代码,程序员,博客" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        <script src="/js/util.js"></script>
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=3"/>
+    
+    
+
+</head>
+
+<body>
+
+
+<h2 class="title">Java基础相关知识点的总结</h2>
+<!---
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2018年9月5日
+
+
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+
+
+
+ </div>
+--->
+</div>
+
+<!--
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-text">Java基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合框架"><span class="toc-text">集合框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#并发"><span class="toc-text">并发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机"><span class="toc-text">虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO流"><span class="toc-text">IO流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大数据"><span class="toc-text">大数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web"><span class="toc-text">Web</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设计模式"><span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据结构"><span class="toc-text">数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法"><span class="toc-text">算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络"><span class="toc-text">网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux"><span class="toc-text">Linux</span></a></li></ol>
+-->
+<h3 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h3><p>1、Java内存模型  </p>
+<p>2、多态（重载，重写）  </p>
+<p>3、Object类的方法  </p>
+<p>4、类访问权限  </p>
+<p>5、sleep、notify、wait的联系和区别  </p>
+<p>6、String、StringBuffer、StringBuilder的联系和区别  </p>
+<p>7、volatile的原理、与synchronized的区别  </p>
+<p>8、线程间的通信方式  </p>
+<p>9、线程的各种状态  </p>
+<p>10、各种锁的原理和区别  </p>
+<p>11、内部类、静态类、匿名类  </p>
+<h3 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h3><p>1、List  </p>
+<p>2、Set  </p>
+<p>3、Map  </p>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><p>1、ConcurrentHashMap  </p>
+<p>2、CopyOnWriteArrayList  </p>
+<p>3、ArrayBlockingQueue  </p>
+<p>4、AtomicInteger、AtomicLong、AtomicBoolean  </p>
+<p>5、CountDownLatch  </p>
+<p>6、CyclicBarrier  </p>
+<p>7、FutureTask  </p>
+<p>8、ReentrantLock  </p>
+<p>9、Condition  </p>
+<p>10、Semaphore  </p>
+<p>11、ReentrantReadWriteLock  </p>
+<p>12、Executors  </p>
+<p>13、ThreadPoolExecutor  </p>
+<h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><p>1、JVM五大区  </p>
+<p>2、JVM内存模型、类加载机制、双亲委派机制  </p>
+<p>3、垃圾收集器、常用GC算法、收集器种类、适用场景、fullGC/minorGC触发条件  </p>
+<p>4、JVM优化、可视化工具使用、日志查询、各项参数设置、四种引用  </p>
+<h3 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h3><p>1、BIO字节流、字符流  </p>
+<p>2、NIO类型、三大组件  </p>
+<h3 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h3><p>1、zookerper  </p>
+<p>2、kafka  </p>
+<p>3、Redis集群  </p>
+<p>4、storm  </p>
+<p>5、hadoop  </p>
+<p>6、spark  </p>
+<p>7、solrCloud  </p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>1、三范式  </p>
+<p>2、主从复制  </p>
+<p>3、读写分离  </p>
+<p>4、事务  </p>
+<p>5、存储引擎（InnoDB、MyISAM）  </p>
+<p>6、索引  </p>
+<p>7、SQL优化  </p>
+<h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h3><p>1、Tomcat架构  </p>
+<p>2、Servlet、JSP  </p>
+<p>3、Spring、SpringMVC、IOC、AOP  </p>
+<p>4、MyBatis、一级/二级缓存  </p>
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><p>1、单例模式  </p>
+<p>2、工厂模式  </p>
+<p>3、观察者模式  </p>
+<p>4、适配器模式  </p>
+<p>5、模板方法模式  </p>
+<p>6、策略模式  </p>
+<p>7、责任链模式  </p>
+<p>8、装饰模式  </p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>1、二叉树、平衡二叉树、二叉查找树、红黑树、完全二叉树、满二叉树  </p>
+<p>2、B树、B-Tree、B+Tree  </p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>1、插入排序  </p>
+<p>2、二分排序  </p>
+<p>3、希尔排序  </p>
+<p>4、冒泡排序  </p>
+<p>5、快速排序  </p>
+<p>6、选择排序  </p>
+<p>7、堆排序  </p>
+<p>8、归并排序  </p>
+<h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>1、TCP  </p>
+<p>2、UDP  </p>
+<p>3、IO模型、同步、异步、阻塞、非阻塞</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>1、常用命令  </p>
+<p>2、管道符  </p>
+<p>3、查看日志相关命令  </p>
+<p>4、CPU使用命令  </p>
+<p>&emsp;&emsp;待续。。。（尽量每日更新）</p>
+
+
+<!--<a href="http://www.wandaima.org/blog/2018/09/05/java-base.html#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274594875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274594875%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+
+
+
+
+
+
+</body>
+</html>
