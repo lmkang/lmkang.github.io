@@ -1,0 +1,110 @@
+<html>
+<head>
+	
+	<title>在Centos7.x上部署javaweb项目</title>
+	<meta name="keywords" content="wandaima.org,玩代码,程序员,博客" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        <script src="/js/util.js"></script>
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=3"/>
+    
+    
+
+</head>
+
+<body>
+
+
+<h2 class="title">在Centos7.x上部署javaweb项目</h2>
+<!---
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2018年9月5日
+
+
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+
+
+
+ </div>
+--->
+</div>
+
+<!--
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装iptables防火墙（可选）"><span class="toc-text">安装iptables防火墙（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装JDK8"><span class="toc-text">安装JDK8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Nginx"><span class="toc-text">安装Nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx常用配置"><span class="toc-text">Nginx常用配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Redis"><span class="toc-text">安装Redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MySQL"><span class="toc-text">安装MySQL</span></a></li></ol>
+-->
+<h3 id="安装iptables防火墙（可选）"><a href="#安装iptables防火墙（可选）" class="headerlink" title="安装iptables防火墙（可选）"></a>安装iptables防火墙（可选）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl mask firewalld</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">yum remove -y firewalld</span><br><span class="line">yum install -y iptables-service</span><br></pre></td></tr></table></figure>
+<h3 id="安装JDK8"><a href="#安装JDK8" class="headerlink" title="安装JDK8"></a>安装JDK8</h3><p>1、通过wget下载或者FTP上传JDK8解压包<br>2、解压到/usr/local/java8：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">tar -zxvf jdk8.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>3、配置jdk环境变量<br>（1）vi /etc/profile<br>（2）在文件末尾添加：<br>&emsp;&emsp;JAVA_HOME=/usr/local/java8<br>&emsp;&emsp;CLASSPATH=.<br>&emsp;&emsp;PATH=$PATH:$JAVA_HOME/bin<br>&emsp;&emsp;export PATH JAVA_HOME CLASSPATH<br>（3）执行命令使配置生效：<br>&emsp;&emsp;source /etc/profile<br>（4）检验安装是否成功：<br>&emsp;&emsp;java -version</p>
+<h3 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h3><p>1、安装SSL模块依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zlib zlib-devel</span><br><span class="line">yum install -y pcre pcre-devel</span><br></pre></td></tr></table></figure></p>
+<p>2、在官网下载OPENSSL-1.0.2o版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.openssl.org/source/openssl-1.0.2o.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>3、解压安装openssl，并检验安装是否成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf openssl.tar.gz</span><br><span class="line">cd openssl</span><br><span class="line">./config --prefix=/usr/local/openssl</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">openssl version</span><br></pre></td></tr></table></figure></p>
+<p>4、安装openssl开发依赖包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y openssl-devel</span><br></pre></td></tr></table></figure></p>
+<p>5、安装Nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx.tar.gz</span><br><span class="line">cd nginx</span><br><span class="line">./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">cd /usr/local/nginx/sbin</span><br><span class="line">./nginx -V</span><br><span class="line">./nginx</span><br><span class="line">打开浏览器访问：http://ip</span><br></pre></td></tr></table></figure></p>
+<h3 id="Nginx常用配置"><a href="#Nginx常用配置" class="headerlink" title="Nginx常用配置"></a>Nginx常用配置</h3><p>1、配置HTTPS/TLS1.2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 443;</span><br><span class="line">	server_name your_domain;</span><br><span class="line">	ssl on;</span><br><span class="line">	ssl_certificate crt_filepath;</span><br><span class="line">	ssl_certificate_key key_filepath;</span><br><span class="line">	ssl_session_timeout 5m;</span><br><span class="line">	ssl_protocols SSLv3 TLSv1.2;</span><br><span class="line">	ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;</span><br><span class="line">	ssl_prefer_server_ciphers on;</span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://127.0.0.1:8080$request_uri;</span><br><span class="line">		proxy_set_header Host $host;</span><br><span class="line">		proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、图片服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name img.xxx.xxx;</span><br><span class="line">	location / &#123;</span><br><span class="line">		root your_img_root_dir;</span><br><span class="line">		autoindex on;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、API服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name api.xxx.xxx;</span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://127.0.0.1:8080$request_uri;</span><br><span class="line">		proxy_set_header Host $host;</span><br><span class="line">		proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、静态页面服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	server_name www.xxx.xxx;</span><br><span class="line">	root your_static_root_dir;</span><br><span class="line">	index index.html;</span><br><span class="line">	location / &#123;</span><br><span class="line">		try_files $uri $uri/ @router;</span><br><span class="line">		index index.html;</span><br><span class="line">	&#125;</span><br><span class="line">	location @router &#123;</span><br><span class="line">		rewrite ^.*$ /index.html last;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装Redis"><a href="#安装Redis" class="headerlink" title="安装Redis"></a>安装Redis</h3><p>1、解压并安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">如果报错（jemalloc/jemalloc.h），执行：make MALLOC=libc</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<p>2、执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">mkdir redis</span><br><span class="line">cd redis</span><br><span class="line">cp /usr/local/bin/* . -r</span><br><span class="line">cd /usr/local/bin</span><br><span class="line">rm -rf *</span><br></pre></td></tr></table></figure></p>
+<p>3、配置Redis，并后台启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/redis-4.0.0/redis.conf /usr/local/redis</span><br><span class="line">cd /usr/local/redis</span><br><span class="line">vi redis.conf，修改daemonize为yes</span><br><span class="line">wq保存退出</span><br><span class="line">./redis-server redis.conf //后台启动redis</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h3><p>1、下载mysql-5.7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirrors.sohu.com/mysql/MySQL-5.7/mysql-5.7.18-linux-glibc2.5-x86_64.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>2、解压，修改目录为mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-5.7.tar.gz</span><br><span class="line">mv mysql-5.7 mysql</span><br></pre></td></tr></table></figure></p>
+<p>3、删除mariadb<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa|grep mariadb //查询出已安装的mariadb</span><br><span class="line">rpm -e --nodeps 文件名 //卸载mariadb，文件名为上述查询出的文件</span><br></pre></td></tr></table></figure></p>
+<p>4、创建mysql用户组和用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd mysql //创建用户组</span><br><span class="line">useradd -g mysql mysql //创建mysql用户组的mysql用户</span><br></pre></td></tr></table></figure></p>
+<p>5、创建/etc/my.cnf文件：vi /etc/my.cnf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line">#设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br><span class="line">socket=/var/lib/mysql/mysql.sock</span><br><span class="line">[mysqld]</span><br><span class="line">#设置3306端口</span><br><span class="line">port=3306</span><br><span class="line">socket=/var/lib/mysql/mysql.sock</span><br><span class="line">#设置mysql的安装目录</span><br><span class="line">basedir=/usr/local/mysql</span><br><span class="line">#设置mysql数据库的数据的存放目录</span><br><span class="line">datadir=/usr/local/mysql/data</span><br><span class="line">#修改服务端的字符集为utf8</span><br><span class="line">character-set-server=utf8</span><br><span class="line">max_allowed_packet=16M</span><br><span class="line">#客户端编码</span><br><span class="line">[client]</span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure></p>
+<p>6、修改目录拥有者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mysql</span><br><span class="line">chown -R mysql:mysql ./</span><br><span class="line">chown -R mysql:mysql data</span><br></pre></td></tr></table></figure></p>
+<p>7、安装mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./bin/mysqld --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data --initialize</span><br><span class="line">将随机密码记录下来，待会儿登录会用到</span><br></pre></td></tr></table></figure></p>
+<p>8、安装依赖（可选）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y libaio*</span><br><span class="line">yum install -y autoconf //此包安装时会安装Data：Dumper模块</span><br></pre></td></tr></table></figure></p>
+<p>9、授予my.cnf访问权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown 777 /etc/my.cnf</span><br><span class="line">chown -R mysql:mysql /etc/my.cnf</span><br></pre></td></tr></table></figure></p>
+<p>10、配置自启控制脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp ./support-files/mysql.server /etc/rc.d/init.d/mysqld</span><br><span class="line">chmod +x /etc/rc.d/init.d/mysqld</span><br></pre></td></tr></table></figure></p>
+<p>11、将mysqld服务加入系统服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add mysqld //添加</span><br><span class="line">chkconfig --list mysqld //查看</span><br></pre></td></tr></table></figure></p>
+<p>12、配置mysql环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line">PATH=$PATH:/usr/local/mysql/bin</span><br><span class="line">wq保存退出</span><br><span class="line">source /etc/profile //使配置生效</span><br></pre></td></tr></table></figure></p>
+<p>13、启动/停止mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查看是否存在目录/var/lib/mysql，不存在则创建：mkdir /var/lib/mysql</span><br><span class="line">chmod 777 /var/lib/mysql</span><br><span class="line">service mysqld start //启动</span><br><span class="line">service mysqld stop //停止</span><br></pre></td></tr></table></figure></p>
+<p>14、用随机密码登录mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure></p>
+<p>15、修改密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD=PASSWORD(&apos;你的密码&apos;);</span><br></pre></td></tr></table></figure></p>
+
+
+<!--<a href="http://www.wandaima.org/blog/2018/09/05/centos7.x-deploy.html#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274594875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274594875%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+
+
+
+
+
+
+</body>
+</html>
