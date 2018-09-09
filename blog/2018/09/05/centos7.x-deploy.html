@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 <head>
 	
@@ -13,9 +14,9 @@
         <script src="/js/util.js"></script>
         <script>
             if(isMobile()) {
-                loadjscssfile('../css/mobile.css', 'css');
+                loadjscssfile('/css/mobile.css', 'css');
             } else {
-                loadjscssfile('../css/desktop.css', 'css');
+                loadjscssfile('/css/desktop.css', 'css');
             }
         </script> 
     
@@ -33,23 +34,7 @@
 
 
 <h2 class="title">在Centos7.x上部署Javaweb项目</h2>
-<!---
-<div style="text-align:center;margin-top: -10px;">
-<div class="article-category">
-发表于2018年9月5日
 
-
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-
-
-
- </div>
---->
-</div>
-
-<!--
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装iptables防火墙（可选）"><span class="toc-text">安装iptables防火墙（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装JDK8"><span class="toc-text">安装JDK8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Nginx"><span class="toc-text">安装Nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx常用配置"><span class="toc-text">Nginx常用配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Redis"><span class="toc-text">安装Redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MySQL"><span class="toc-text">安装MySQL</span></a></li></ol>
--->
 <h3 id="安装iptables防火墙（可选）"><a href="#安装iptables防火墙（可选）" class="headerlink" title="安装iptables防火墙（可选）"></a>安装iptables防火墙（可选）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl mask firewalld</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">yum remove -y firewalld</span><br><span class="line">yum install -y iptables-service</span><br></pre></td></tr></table></figure>
 <h3 id="安装JDK8"><a href="#安装JDK8" class="headerlink" title="安装JDK8"></a>安装JDK8</h3><p>1、通过wget下载或者FTP上传JDK8解压包<br>2、解压到/usr/local/java8：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">tar -zxvf jdk8.tar.gz</span><br></pre></td></tr></table></figure></p>
 <p>3、配置jdk环境变量<br>（1）vi /etc/profile<br>（2）在文件末尾添加：<br>&emsp;&emsp;JAVA_HOME=/usr/local/java8<br>&emsp;&emsp;CLASSPATH=.<br>&emsp;&emsp;PATH=$PATH:$JAVA_HOME/bin<br>&emsp;&emsp;export PATH JAVA_HOME CLASSPATH<br>（3）执行命令使配置生效：<br>&emsp;&emsp;source /etc/profile<br>（4）检验安装是否成功：<br>&emsp;&emsp;java -version</p>
@@ -82,21 +67,6 @@
 <p>15、修改密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD=PASSWORD(&apos;你的密码&apos;);</span><br></pre></td></tr></table></figure></p>
 
 
-<!--<a href="http://www.wandaima.org/blog/2018/09/05/centos7.x-deploy.html#disqus_thread" class="article-comment-link">Comments</a>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = ''; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
--->
 <div style="display:none">
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274594875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274594875%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 </div>

@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 <head>
 	
@@ -13,9 +14,9 @@
         <script src="/js/util.js"></script>
         <script>
             if(isMobile()) {
-                loadjscssfile('../css/mobile.css', 'css');
+                loadjscssfile('/css/mobile.css', 'css');
             } else {
-                loadjscssfile('../css/desktop.css', 'css');
+                loadjscssfile('/css/desktop.css', 'css');
             }
         </script> 
     
@@ -33,24 +34,8 @@
 
 
 <h2 class="title">操作系统：从hello world到xcore</h2>
-<!---
-<div style="text-align:center;margin-top: -10px;">
-<div class="article-category">
-发表于2018年8月31日
 
-
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-
-
-
- </div>
---->
-</div>
-
-<!--
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#开发环境"><span class="toc-text">开发环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hello-world"><span class="toc-text">hello world</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#保护模式"><span class="toc-text">保护模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分页模式"><span class="toc-text">分页模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用C语言写内核"><span class="toc-text">用C语言写内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中断"><span class="toc-text">中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存管理系统"><span class="toc-text">内存管理系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程"><span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入输出系统"><span class="toc-text">输入输出系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户进程"><span class="toc-text">用户进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统调用"><span class="toc-text">系统调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#硬盘驱动程序"><span class="toc-text">硬盘驱动程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件系统"><span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统交互"><span class="toc-text">系统交互</span></a></li></ol>
--->
-<p>&emsp;&emsp;在这篇博客中，我将从一个hello world开始，参考Linux，带大家逐步写出一个小的操作系统内核（xcore）。由于时间的原因，可能不会每天都更新，但是每天完成的功能模块，我都会把源码放在github（<a href="https://github.com/lmkang/xcore），感兴趣的同学可以clone。xcore拥有操作系统的基本功能：进程管理、内存管理、文件系统、系统交互（Shell）、驱动程序（硬盘）。可能有同学注意到了，xcore没有网络通讯功能，感兴趣的同学可以自己实现简单的TCP/UDP协议（PS：如果时间充裕，我可能会补充上）。如果大家对于操作系统的一些基本概念还不是很理解，请阅读另一篇博文《操作系统：基本概念》。那么，我们就开整吧。">https://github.com/lmkang/xcore），感兴趣的同学可以clone。xcore拥有操作系统的基本功能：进程管理、内存管理、文件系统、系统交互（Shell）、驱动程序（硬盘）。可能有同学注意到了，xcore没有网络通讯功能，感兴趣的同学可以自己实现简单的TCP/UDP协议（PS：如果时间充裕，我可能会补充上）。如果大家对于操作系统的一些基本概念还不是很理解，请阅读另一篇博文《操作系统：基本概念》。那么，我们就开整吧。</a></p>
+<p>&emsp;&emsp;在这篇博客中，我将从一个hello world开始，参考Linux，带大家逐步写出一个小的操作系统内核（xcore）。由于时间的原因，可能不会每天都更新，但是每天完成的功能模块，我都会把源码放在github（<a href="https://github.com/lmkang/xcore">https://github.com/lmkang/xcore</a>），感兴趣的同学可以clone。xcore拥有操作系统的基本功能：进程管理、内存管理、文件系统、系统交互（Shell）、驱动程序（硬盘）。可能有同学注意到了，xcore没有网络通讯功能，感兴趣的同学可以自己实现简单的TCP/UDP协议（PS：如果时间充裕，我可能会补充上）。如果大家对于操作系统的一些基本概念还不是很理解，请阅读另一篇博文《操作系统：基本概念》。那么，我们就开整吧。</p>
 <h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><p>1、开发工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CentOS-6.9-x86_64-minimal.iso</span><br><span class="line">VirtualBox-5.1.22-115126-Win.exe(windows)</span><br><span class="line">Bochs-2.6.8(windows)</span><br><span class="line">Bz1621.lzh(Binary Editor)</span><br><span class="line">gcc</span><br><span class="line">nasm</span><br><span class="line">dd</span><br><span class="line">Notepad++(windows)</span><br></pre></td></tr></table></figure></p>
 <p>2、VirtualBox设置linux和windows共享文件夹<br>（1）设置–&gt;共享文件夹–&gt;名称(linuxshare)，自动挂载，固定分配<br>（2）设置–&gt;存储–&gt;控制器：IDE–&gt;VBoxGuestAdditions.iso<br>（3）执行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yun install -y gcc gcc-c++</span><br><span class="line">yum install -y autoconf</span><br><span class="line">yum install -y automake</span><br><span class="line">yum install -y kernel-devel</span><br><span class="line">mkdir /home/share</span><br><span class="line">mount /dev/cdrom /home/share</span><br><span class="line">cd /home/share</span><br><span class="line">./VBoxLinuxAdditions.run</span><br><span class="line">mount -t vboxsf linuxshare /usr/local/winshare</span><br></pre></td></tr></table></figure></p>
 <p>3、开发过程<br>&emsp;&emsp;在windows用Notepad++写代码，在linux中用nasm、gcc编译和用dd打包，然后在windows中用Bochs调试运行。<br>&emsp;&emsp;Notepad++(windows)–&gt;make(linux)–&gt;run.bat(windows)  </p>
@@ -67,21 +52,6 @@
 <h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><h3 id="内存管理系统"><a href="#内存管理系统" class="headerlink" title="内存管理系统"></a>内存管理系统</h3><h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><h3 id="输入输出系统"><a href="#输入输出系统" class="headerlink" title="输入输出系统"></a>输入输出系统</h3><h3 id="用户进程"><a href="#用户进程" class="headerlink" title="用户进程"></a>用户进程</h3><h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><h3 id="硬盘驱动程序"><a href="#硬盘驱动程序" class="headerlink" title="硬盘驱动程序"></a>硬盘驱动程序</h3><h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><h3 id="系统交互"><a href="#系统交互" class="headerlink" title="系统交互"></a>系统交互</h3><p>&emsp;&emsp;待续。。。（尽量每日更新）</p>
 
 
-<!--<a href="http://www.wandaima.org/blog/2018/08/31/xcore.html#disqus_thread" class="article-comment-link">Comments</a>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = ''; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
--->
 <div style="display:none">
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274594875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274594875%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 </div>
