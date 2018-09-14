@@ -42,10 +42,8 @@
 <p>4、注意事项<br>编译/链接32位的C代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -m32 -c -o main.o main.c</span><br><span class="line">ld main.o -melf_i386 -Ttext 0xc0001500 -e main -o kernel.bin</span><br></pre></td></tr></table></figure></p>
 <h3 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h3><p>1、int 0x10<br>&emsp;&emsp;在MBR中使用BIOS中断（int 0x10）打印“hello，world”。<br>2、操作显存<br>&emsp;&emsp;在MBR中直接将“hello，world”写入显存。</p>
 <h3 id="保护模式"><a href="#保护模式" class="headerlink" title="保护模式"></a>保护模式</h3><p>1、读取硬盘  </p>
-<p>2、加载Loader  </p>
-<p>3、获取物理内存容量  </p>
-<h3 id="分页模式"><a href="#分页模式" class="headerlink" title="分页模式"></a>分页模式</h3><p>1、分页概念  </p>
-<p>2、开启分页  </p>
+<p>2、获取物理内存容量  </p>
+<p>3、分页模式 </p>
 <h3 id="用C语言写内核"><a href="#用C语言写内核" class="headerlink" title="用C语言写内核"></a>用C语言写内核</h3><p>1、概念  </p>
 <p>2、内联汇编  </p>
 <p>3、print函数  </p>
