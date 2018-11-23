@@ -68,7 +68,8 @@ a {
   cursor: crosshair;
 /*border-bottom: 1px dashed Red;*/
   padding: 1px;
-  color: #000;
+/*color: black;*/
+  color: #930ee4;
 }
 a:hover {
   background-color: LightGrey;
