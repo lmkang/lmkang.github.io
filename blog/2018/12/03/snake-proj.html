@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+	
+	<title>玩转贪吃蛇</title>
+	<meta name="keywords" content="wandaima.org,玩代码,程序员,博客" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        <script src="/js/util.js"></script>
+        <script>
+            if(isMobile()) {
+                loadjscssfile('/css/mobile.css', 'css');
+            } else {
+                loadjscssfile('/css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=3"/>
+    
+    
+
+</head>
+
+<body>
+
+
+<h2 class="title">玩转贪吃蛇</h2>
+
+<p>&emsp;&emsp;说起贪吃蛇，想必大家肯定不会陌生，毕竟也是一个经典的益智游戏嘛。曾经年少的我可能无法写出贪吃蛇，但是呢，不巧的是我学了软件工程的专业，还学了C和Java两门编程语言，多少也有点知识储备了。于是，大二那会儿（2015年）就用C语言写了个控制台版的贪吃蛇。后来学了Java语言，接触了Swing图形界面编程，就写了一个图形界面的贪吃蛇。时隔多年，上周末（2018/12/01），我又用C语言写了一遍贪吃蛇。大家别误会，这和前面的两个版本是完全不同的，介肯定系里从没见过的船新版本！</p>
+<h3 id="贪吃蛇-1-0"><a href="#贪吃蛇-1-0" class="headerlink" title="贪吃蛇 1.0"></a>贪吃蛇 1.0</h3><p>&emsp;&emsp;想当初，刚学完C语言，就想写个有趣的东西玩一玩。什么水仙花、汉诺塔、猜数字等等，都玩过了，太初级了，提不起什么兴趣。后来灵光一闪，要不写个贪吃蛇吧。想想还不错，那说干就干呀，我就开始写。那会儿还用的VC6.0，因为学校就教的这个嘛，也没想那么多。因为第一次写这样的程序，说实话，和当年高中写作文一样，无从下手。作文不会写，那还不会“借鉴”么，可以看出以前的教育是多么的刻骨铭心呐。<br>&emsp;&emsp;然后我就去百度，阅读了无数的代码之后，很难受，因为看不懂。不过，大概也知道了贪吃蛇是怎么运动的了。然后我就决定了，还是自己写吧。运动原理如下图（可能你们也看出来了，用WORD画的，不重要）：<br><img src="/images/snake-proj-04.png" width="90%" height="90%" /></p>
+<p>&emsp;&emsp;这个图一目了然呀。贪吃蛇的运动无非就是：把最后节点给擦除掉，把前面节点的位置赋值给后面的节点，然后根据运动方向的不同，更改头部的位置。如果吃掉食物的话，在擦除掉的位置新增一个节点。具体代码我就不贴了，可能写得比较糟糕，但是不会影响阅读。感兴趣的可以去git clone（<a href="https://github.com/lmkang/snake-proj">https://github.com/lmkang/snake-proj</a>），这里给你们放个截图。<br><img src="/images/snake-proj-01.png" width="90%" height="90%" /></p>
+<h3 id="贪吃蛇-2-0"><a href="#贪吃蛇-2-0" class="headerlink" title="贪吃蛇 2.0"></a>贪吃蛇 2.0</h3><p>&emsp;&emsp;我们学校是大一学完了C语言，大二就开始学Java。说实话，C语言都还没入门呢，面向对象就来了，一脸懵逼。程序员就是命苦啊，在上学的时候就已经体现出来了。你想想，你工作的时候，像前端开发，去年还在用jquery，刚学会没多久，Vue就出来了，2.0，3.0。<br><img src="/images/snake-proj-05.gif" width="60%" height="60%" /></p>
+<p>&emsp;&emsp;也罢，谁叫我当初脑子进水，选了计算机软件工程呢。虽然人间不值得，但是来都来了，生活还得继续呀。我们说一下这个Java版本的贪吃蛇吧。当初学校的课程并没有深入地教Swing，只是让我们写一个图形界面的计算器，代码也是抄的书上的。所以呢，我就自己去学呗。各种论坛、博客、贴吧，花了很多时间，最后一顿“乱写”，没想到就写出来了。开玩笑的，也不是瞎写，好歹用了<a href="https://baike.baidu.com/item/MVC%E6%A1%86%E6%9E%B6/9241230?fr=aladdin&amp;fromid=713147&amp;fromtitle=MVC%E6%A8%A1%E5%BC%8F" title="点击查询">MVC模式</a>。其实也没啥，就是套了层界面，代码在<a href="https://github.com/lmkang/snake-proj">这里</a>。截图如下：<br><img src="/images/snake-proj-02.png" width="90%" height="90%" /></p>
+<h3 id="贪吃蛇-3-0"><a href="#贪吃蛇-3-0" class="headerlink" title="贪吃蛇 3.0"></a>贪吃蛇 3.0</h3><p>&emsp;&emsp;其实，我明说了吧，前面两个版本都是为了凑字数，3.0才是我真正想装X的（老脸微红）。反正都看到这里了，就继续往下看吧。这个版本就厉害了，你可能真没玩过。3.0版本是用你的桌面图标来玩贪吃蛇！说实话，是不是有点创新的感觉。不过这个想法也不是我原创的，我也是在一个<a href="https://tieba.baidu.com/p/4093009991?red_tag=3549796223">贴吧</a>看到的。但是，代码完全是原创的，这点我可以保证，因为源代码用的是作者自己写的语言，我没学过这个语言，我是用C语言实现的。感兴趣的可以玩一下，我已经编译好了，<a href="https://github.com/lmkang/snake-proj">下载</a>下来就可以直接玩了。<br>&emsp;&emsp;建议桌面图标大小调成中等图标。可以自己调整 common.h 文件的 CELL_SIZE 变量以适应不同的图标大小（需要自己编译）。snake-3.0 的开发环境是 Notepad++和MinGW，不要问我为什么不用VC6.0或者VS，因为笔记本电脑太卡，并且这些IDE是收费的。建议想学好C语言的同学，还是不要在Windows开发，拥抱 Linux + gcc，你会进步更快。snake-proj 的编译命令是 gcc -std=c99 -Wall -W -o snake-3.0.exe main.c snake.c food.c。最后，放一个截图就结束本文了：<br><img src="/images/snake-proj-03.png" width="90%" height="90%" /></p>
+
+
+<div style="display:none">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274594875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274594875%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+
+
+
+
+
+
+</body>
+</html>
