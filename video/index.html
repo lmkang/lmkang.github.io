@@ -6,7 +6,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<title>免费观看全网VIP视频</title>
-		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 		<style>
 			a:link{
 				text-decoration:none;
@@ -194,11 +193,12 @@
 				if(api == null || api.trim().length == 0) {
 					api = "http://api.xcq91.top/?url=";
 				}
-				var url = $("#video_url_id").val();
+				var ele = document.getElementById("video_url_id");
+				var url = ele.value;
 				if(url == null || url.trim().length == 0) {
-					$("#video_url_id").focus();
+					ele.focus();
 				} else {
-					$("#video_frame").attr("src", api + url);
+					ele.src = api + url;
 				}
 			}
 			function showAbout() {
