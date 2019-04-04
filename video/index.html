@@ -26,14 +26,6 @@
 					margin: 110px auto 0 auto;
 					padding-left: 252px;
 				}
-				.api-sel {
-					float: left;
-				}
-				.api-sel select {
-					width: 150px;
-					height: 32px;
-					border: 1px solid #b6b6b6;
-				}
 				.video-search {
 					float: left;
 					margin-left: 2px;
@@ -88,19 +80,6 @@
 					width: 340px;
 					margin: 50px auto 0 auto;
 				}
-				.api-sel {
-					margin-bottom: 10px;
-				}
-				.api-sel select {
-					width: 180px;
-					height: 38px;
-					padding-left: 6px;
-					font-size: 14px;
-					border: 1px solid #b6b6b6;
-				}
-				.api-sel option {
-					font-size: 9px;
-				}
 				.video-search {
 					margin-bottom: 10px;
 				}
@@ -143,29 +122,141 @@
 					float: right;
 					margin-right: 36px;
 				}
+				/** edit .custom-container for mobile */
+				.custom-container {
+					margin-bottom: 10px;
+				}
+				/** ------- end ------- */
 			}
+		</style>
+		<style>
+			/** define css var, IE and Edge are not supported */
+			.custom-container {
+				--div-width: 150px;
+				--item-height: 30px;
+				--border-color: #d6d6d6;
+				--hover-bgcolor: #d6d6d6;
+				--div-bgcolor: #fff;
+				--font-size: 16px;
+			}
+			#select_btn {
+				--img-width: 18px;
+				--img-height: 18px;
+				--img-margin-top: 6px;
+				--img-margin-right: 4px;
+			}
+			#custom_ul {
+				--item-count: 9;
+			}
+			/** ------- end ------- */
+			.custom-container * {
+				margin: 0;
+				padding: 0;
+			}
+			.custom-container {
+				width: var(--div-width, 140px);
+				height: var(--item-height, 30px);
+				font-size: var(--font-size, 16px);
+				float: left;
+			}
+			.custom-select {
+				position: absolute;
+				width: var(--div-width, 140px);
+				border: 1px solid var(--border-color, #d6d6d6);
+				text-align: center;
+				background-color: var(--div-bgcolor, #fff);
+			}
+			#select_btn {
+				display: block;
+				width: var(--div-width, 140px);
+				height: var(--item-height, 30px);
+				line-height: var(--item-height, 30px);
+				-webkit-user-select: none;
+				user-select: none;
+			}
+			#select_btn:hover {
+				cursor: pointer;
+			}
+			#tip_msg {
+				display: inline-block;
+				width: calc(var(--div-width, 140px) - var(--img-width, 18px) - var(--img-margin-right, 4px));
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			#arrow_img {
+				width: var(--img-width, 18px);
+				height: var(--img-height, 18px);
+				float: right;
+				margin-top: var(--img-margin-top, 6px);
+				margin-right: var(--img-margin-right, 4px);
+			}
+			#custom_ul {
+				list-style: none;
+				max-height: calc(var(--item-count, 9) * var(--item-height, 30px));
+				overflow-x: hidden;
+				overflow-y: auto;
+			}
+			#custom_ul li {
+				width: var(--div-width, 140px);
+				float: left;
+				line-height: var(--item-height, 30px);
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			#custom_ul li:hover {
+				background-color: var(--hover-bgcolor, #d6d6d6);
+				cursor: pointer;
+			}
+			/** --- ul scrollbar --- */
+			#custom_ul::-webkit-scrollbar {
+				width: 5px;
+			}
+			#custom_ul::-webkit-scrollbar-thumb {
+			border-radius: 5px;
+				background: #c1c1c1;
+			}
+			#custom_ul::-webkit-scrollbar-track 
+				border-radius: 5px;
+				background-color: #f1f1f1;
+			}
+			/** ----- end ----- */
 		</style>
 	</head>
 	<body>
 		<div class="app-container">
 			<div>
-				<div class="api-sel">
-					<select onchange="selApi(this)">
-						<option value="http://api.xcq91.top/?url=">选择接口</option>
-						<option value="http://api.xcq91.top/?url=">全网（太尼玛快了）</option>
-						<option value="http://vip.jlsprh.com/index.php?url=">全网（太快了）</option>
-						<option value="http://api.wlzhan.com/sudu/?url=">全网（太快了）</option>
-						<option value="http://2gty.com/apiurl/yun.php?url=">全网（有点快）</option>
-						<option value="http://api.xyingyu.com/?url=">全网（有点快）</option>
-						<option value="http://jx.618g.com/?url=">全网（有点快）</option>
-						<option value="http://api.greatchina56.com/?url=">全网（有点快）</option>
-						<option value="http://api.xiaomil.com/a/index.php?url=">全网（有点快）</option>
-						<option value="http://api.lvcha2017.cn/?url=">全网（一般般）</option>
-						<option value="http://api.visaok.net/?url=">非全网（太快了）</option>
-						<option value="http://jqaaa.com/jq3/?url=&url=">非全网（有点快）</option>
-						<option value="https://jiexi.071811.cc/jx2.php?url=">非全网（有点快）</option>
-						<option value="http://api.baiyug.cn/vip/index.php?url=">非全网（有点快）</option>
-					</select>
+				<div class="custom-container">
+					<div class="custom-select">
+						<span id="select_btn" onClick="changeStyle()">
+							<span id="tip_msg">默认接口</span>
+							<img id="arrow_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAByklEQVRYR+3VP6iOcRQH8M+V7qAUdYuBcgeDP4USA0npFgYKwzWRUTYZyCYx2AxGTNfgT5QolKTI4CqXxXDvYHBLGZQMQqfOU2+8932e3/sO7/L8lt/z+3PO+f6+33POM2LIY2TI8bUAWgZaBrox8Ah7szwP4sGApXoA99PHY+zr9NcNwBp8wBJ8w3p86RPESnzEcvzABszVAYjzSUzlxRfYjT+FIOJxz7Er7Y7i1r8+eiXhDRxLg3O4VAggbC6mzXWc6GbfC0BI8A5r8QvbMN0QxHa8xGJ8wuaU4D/zujIMzd5iFLPYhO81IJZmDq3GT2zNdVezOgBhdApX0/oOjtQAuI3DeeckrvW63wRA2D/E/nR0HDcXcBpnoXeMezhUJ1lTAMvwHqtSy40pSaf/ccxk+X7O8q2Tq+h3HEn4CosyGWMdyRkjcuQ1tuTeDrype32cN2Wg8nUeF3JxBWc6vk/n91lcbhK8HwABOBrTzgwwkfOTnJ8h9ho3rVIGIk6018iHMcxn4BX4inU5NyWgWILK8R487YgSL46XBwNFox8GqgCRA5XuoXloXzwGARBt9i5+Z3OqKqIIxCAAigItdLkF0DLQMjB0Bv4C4W5HIaZhuc0AAAAASUVORK5CYII=" />
+						</span>
+						<ul id="custom_ul" style="display: none;">
+							<li text="https://z1.m1907.cn?jx=" newPage="newPage">全网接口1</li>
+							<li text="https://vip.bljiex.com/?v=" newPage="newPage">全网接口2</li>
+							<li text="http://jx.itaoju.top/?url=" newPage="newPage">全网接口3</li>
+							<li text="http://jiexi.071811.cc/jx.php?url=" newPage="newPage">全网接口4</li>
+							<li text="https://beaacc.com/api.php?url=" newPage="newPage">全网接口5</li>
+							<li text="http://jqaaa.com/jx.php?url=" newPage="newPage">全网接口6</li>
+							<li text="https://jx.daheiyun.com/?url=" newPage="newPage">全网接口7</li>
+							<li text="http://jx.du2.cc/?url=" newPage="newPage">全网接口8</li>
+							<li text="http://jx.ovov.cc/?url=" newPage="newPage">全网接口9</li>
+							<li text="http://jx.618ge.com/?url=" newPage="newPage">全网接口10</li>
+							<li text="http://jx.aeidu.cn/index.php?url=" newPage="newPage">全网接口11</li>
+							<li text="http://jx.aeidu.cn/v/1.php?url=" newPage="newPage">全网接口12</li>
+							<li text="http://jx.aeidu.cn/v/2.php?url=" newPage="newPage">全网接口13</li>
+							<li text="http://jx.aeidu.cn/v/3.php?url=" newPage="newPage">全网接口14</li>
+							<li text="http://jx.aeidu.cn/v/4.php?url=" newPage="newPage">全网接口15</li>
+							<li text="http://jx.598110.com/?url=" newPage="newPage">全网接口16</li>
+							<li text="http://jx.598110.com/zuida.php?url=" newPage="newPage">全网接口17</li>
+							<li text="http://jx.598110.com/duo/index.php?url=" newPage="newPage">全网接口18</li>
+							<li text="http://mv.688ing.com/player?url=" newPage="newPage">全网接口19</li>
+							<li text="http://2gty.com/apiurl/yun.php?url=" newPage="newPage">全网接口20</li>
+							<li text="http://www.82190555.com/index/qqvod.php?url=" newPage="newPage">全网接口21</li>
+						</ul>
+					</div>
 				</div>
 				<div class="video-search">
 					<input id="video_url_id" type="text" placeholder="请输入视频播放网址"/>
@@ -178,33 +269,139 @@
 			</div>
 			<div class="footer">
 				<div class="copyright">
-					<span>©2018&nbsp;玩代码&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="showAbout()">使用声明</a></span>
+					<span>
+						©2018&nbsp;玩代码&nbsp;&nbsp;&nbsp;
+						<a href="javascript:;" onclick="showAbout()">使用声明</a>
+					</span>
 				</div>
 				<div class="visit-count">
-					<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274594875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274594875%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+					<script type="text/javascript">
+						var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+						document.write(unescape("%3Cspan id='cnzz_stat_icon_1274594875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274594875%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+					</script>
 				</div>
 			</div>
 		</div>
 		<script>
 			var api;
-			function selApi(selThis) {
-				api = selThis.value;
-			}
+			var newPage;
 			function doPlay() {
 				if(api == null || api.trim().length == 0) {
-					api = "http://api.xcq91.top/?url=";
+					api = "https://z1.m1907.cn?jx=";
 				}
 				var ele = document.getElementById("video_url_id");
 				var url = ele.value;
 				if(url == null || url.trim().length == 0) {
 					ele.focus();
 				} else {
-					document.getElementById("video_frame").src = api + url;
+					if(newPage != "newPage") {
+						document.getElementById("video_frame").src = api + url;
+					} else {
+						window.open(api + url);
+					}
 				}
 			}
 			function showAbout() {
 				alert("本站所有接口均来自互联网，仅提供本地测试使用，请勿用于任何商业用途，否则后果自负。");
 			}
+		</script>
+		<script>
+			// global var
+			var borderColor = "#d6d6d6";
+			var selectedBgcolor = "#d6d6d6";
+			
+			// change ul to show or hide
+			function changeStyle() {
+				var ele = document.getElementById("custom_ul");
+				if(ele.style.display == "block") {
+					ele.style.display = "none";
+					document.getElementById("select_btn").style.borderBottom = "";
+					document.getElementById("arrow_img").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAByklEQVRYR+3VP6iOcRQH8M+V7qAUdYuBcgeDP4USA0npFgYKwzWRUTYZyCYx2AxGTNfgT5QolKTI4CqXxXDvYHBLGZQMQqfOU2+8932e3/sO7/L8lt/z+3PO+f6+33POM2LIY2TI8bUAWgZaBrox8Ah7szwP4sGApXoA99PHY+zr9NcNwBp8wBJ8w3p86RPESnzEcvzABszVAYjzSUzlxRfYjT+FIOJxz7Er7Y7i1r8+eiXhDRxLg3O4VAggbC6mzXWc6GbfC0BI8A5r8QvbMN0QxHa8xGJ8wuaU4D/zujIMzd5iFLPYhO81IJZmDq3GT2zNdVezOgBhdApX0/oOjtQAuI3DeeckrvW63wRA2D/E/nR0HDcXcBpnoXeMezhUJ1lTAMvwHqtSy40pSaf/ccxk+X7O8q2Tq+h3HEn4CosyGWMdyRkjcuQ1tuTeDrype32cN2Wg8nUeF3JxBWc6vk/n91lcbhK8HwABOBrTzgwwkfOTnJ8h9ho3rVIGIk6018iHMcxn4BX4inU5NyWgWILK8R487YgSL46XBwNFox8GqgCRA5XuoXloXzwGARBt9i5+Z3OqKqIIxCAAigItdLkF0DLQMjB0Bv4C4W5HIaZhuc0AAAAASUVORK5CYII=";
+				} else {
+					var color = "#d6d6d6";
+					if(window.borderColor != null) {
+						color = window.borderColor;
+					}
+					ele.style.display = "block";
+					document.getElementById("arrow_img").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABvUlEQVRYR+3VT4hOYRTH8c9MslBTlGLBwsIK+bMgJSkkQzYoNpKtbCQldiQlG4vZalYsWFiYpoaSlGkWKH82FixmMclCKQsJnTrq9nrnvfd538ls7rN57nPvc8759jt/7pBFXkOLHF8L0CrQKjCIAktwH79xHD/7aelBAG7iQgaN54v/E2AvHncE3IcnpRD9KLAab7ASnzMFq/AFmzBXAlEKEPefYVcG2Z/7VO7PsTuhGnGUAlzB1fR8q1ID8Xw+31/G9UbRKfoXbMcLDOMV4vy38pdiGlvxCzsx0wSiqQLLM+9r8B0b8bEjwDq8xTLMZj18rYNoCvAIo+nsNMbncRzf7uS3CRxaCIBzuJ2OHuBYjdMYTkfzzlmM9bpfp8AGvETkOCTfjG81ACN4h7X4gW157mrWCyBy+Rrrs9ii6KL4mqwdiJaMcf0BW7J2/rHtBXAXJ9LiEm40iVy5E+14Lc9RF2e62c8HcKpSaDF49pQMlwwUvp/mYIpXJ3GvE6IbQEge0kcK+hqvlSAxtt9jRaYgaupTFaIbwCQO5KXDiBYcZB3Bw3QQvg/WAQwSrNi2rg2LHZYatACtAq0CfwB5B0chBnaVbwAAAABJRU5ErkJggg==";
+					document.getElementById("select_btn").style.borderBottom = "1px solid " + color;
+				}
+			}
+			
+			// exec the func when select item
+			function customFunc(item, i) {
+				// TODO : write your logic in here
+				// you can define attr at <li>, such as text
+				api = item.getAttribute("text");
+				newPage = item.getAttribute("newPage");
+			}
+			
+			// clear all selected style
+			function clearStyle() {
+				var ulEle = document.getElementById("custom_ul");
+				var nodeList = ulEle.childNodes;
+				if(nodeList != null && nodeList.length > 0) {
+					for(var i = 0; i < nodeList.length; i++) {
+						if(nodeList[i].nodeType === 1) {
+							nodeList[j].style.backgroundColor = "";
+						}
+					}
+				}
+				if(ulEle.style.display == "block") {
+					changeStyle();
+				}
+			}
+			
+			// add click event to the all of item
+			var ulEle = document.getElementById("custom_ul");
+			var nodeList = ulEle.childNodes;
+			if(nodeList != null && nodeList.length > 0) {
+				for(var i = 0; i < nodeList.length; i++) {
+					if(nodeList[i].nodeType === 1) {
+						nodeList[i].onclick = (function(item, index) {
+							return function() {
+								var multiple = ulEle.getAttribute("multiple");
+								if(multiple != "multiple") {
+									for(var j = 0; j < nodeList.length; j++) {
+										if(nodeList[j].nodeType === 1) {
+											nodeList[j].style.backgroundColor = "";
+										}
+									}
+								}
+								var color = "#d6d6d6";
+								if(window.selectedBgcolor != null) {
+									color = window.selectedBgcolor;
+								}
+								if(multiple != "multiple") {
+									item.style.backgroundColor = color;
+									document.getElementById("tip_msg").innerText = item.innerText;
+									changeStyle();
+								} else {
+									if(item.style.backgroundColor != "") {
+										item.style.backgroundColor = "";
+									} else {
+										item.style.backgroundColor = color;
+									}
+								}
+								customFunc(item, i);
+							};
+						})(nodeList[i], i);
+					}
+				}
+			}
+			
+			// add window event in order to hide ul when click outside of ul
+			window.addEventListener("click", function(event) {
+				if(event.target.id != "tip_msg" 
+					&& event.target.id != "arrow_img"
+					&& event.target.nodeName != "LI") {
+					
+					var ulEle = document.getElementById("custom_ul");
+					if(ulEle.style.display == "block") {
+						changeStyle();
+					}
+				}
+			});
 		</script>
 	</body>
 </html>
