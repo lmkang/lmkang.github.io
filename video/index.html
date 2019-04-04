@@ -69,6 +69,25 @@
 					float: right;
 					margin-right: 160px;
 				}
+				/** define css var, IE and Edge are not supported */
+				.custom-container {
+					--div-width: 150px;
+					--item-height: 30px;
+					--border-color: #d6d6d6;
+					--hover-bgcolor: #d6d6d6;
+					--div-bgcolor: #fff;
+					--font-size: 16px;
+				}
+				#select_btn {
+					--img-width: 18px;
+					--img-height: 18px;
+					--img-margin-top: 6px;
+					--img-margin-right: 4px;
+				}
+				#custom_ul {
+					--item-count: 9;
+				}
+				/** ------- end ------- */
 			}
 			
 			@media all and (min-width: 350px) and (max-width: 767px) {
@@ -122,6 +141,25 @@
 					float: right;
 					margin-right: 36px;
 				}
+				/** define css var, IE and Edge are not supported */
+				.custom-container {
+					--div-width: 150px;
+					--item-height: 34px;
+					--border-color: #d6d6d6;
+					--hover-bgcolor: #d6d6d6;
+					--div-bgcolor: #fff;
+					--font-size: 16px;
+				}
+				#select_btn {
+					--img-width: 18px;
+					--img-height: 18px;
+					--img-margin-top: 9px;
+					--img-margin-right: 6px;
+				}
+				#custom_ul {
+					--item-count: 9;
+				}
+				/** ------- end ------- */
 				/** edit .custom-container for mobile */
 				.custom-container {
 					margin-bottom: 10px;
@@ -130,25 +168,6 @@
 			}
 		</style>
 		<style>
-			/** define css var, IE and Edge are not supported */
-			.custom-container {
-				--div-width: 150px;
-				--item-height: 30px;
-				--border-color: #d6d6d6;
-				--hover-bgcolor: #d6d6d6;
-				--div-bgcolor: #fff;
-				--font-size: 16px;
-			}
-			#select_btn {
-				--img-width: 18px;
-				--img-height: 18px;
-				--img-margin-top: 6px;
-				--img-margin-right: 4px;
-			}
-			#custom_ul {
-				--item-count: 9;
-			}
-			/** ------- end ------- */
 			.custom-container * {
 				margin: 0;
 				padding: 0;
