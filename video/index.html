@@ -59,14 +59,15 @@
 					background-color: black;
 				}
 				.footer {
-					width: 710px;
+					width: 712px;
 					margin-top: 30px;
+					text-align: center;
 				}
 				.copyright {
-					float: left;
-					margin-left: 160px;
+					
 				}
 				.visit-count {
+					display: none;
 					float: right;
 					margin-right: 160px;
 				}
@@ -133,12 +134,13 @@
 				}
 				.footer {
 					margin-top: 15px;
+					text-align: center;
 				}
 				.copyright {
-					float: left;
-					margin-left: 36px;
+					
 				}
 				.visit-count {
+					display: none;
 					float: right;
 					margin-right: 36px;
 				}
@@ -304,7 +306,7 @@
 		</div>
 		<script>
 			var api;
-			var newPage;
+			var newPage = "newPage";
 			function doPlay() {
 				if(api == null || api.trim().length == 0) {
 					api = "https://z1.m1907.cn?jx=";
